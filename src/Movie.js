@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Movie = () => {
+const Movie = ({movies}) => {
   return (
     <div className="movieDetails">
-      <h3 className="title">Title</h3>
-      <p className="year">2021</p>
+      <h3 className="title">{movies.Title}</h3>
+      <p className="year">{movies.Year}</p>
       <div className="nominationButton">
         <button>Nomination</button>
       </div>
