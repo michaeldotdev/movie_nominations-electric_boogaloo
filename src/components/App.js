@@ -1,18 +1,16 @@
 import React, { useState} from 'react';
 
 import {fetchMovies} from '../helpers'
-import Movie from './Movie';
 import MovieList from './MovieList';
 import Search from './Search';
 
 
-
 const App = () => {
-  const [movies, setMovies] = useState([])
+  const [movies, setMovies] = useState([]);
 
   const searchingMovies = e => {
     return fetchMovies(e).then(data => {
-      setMovies(data.Search)
+        setMovies(data.Search)
       }
     )
   }
@@ -22,11 +20,7 @@ const App = () => {
     <div className="App">
       <h1>Movie Nominations</h1>
       <Search searchingMovies={searchingMovies} />
-      <MovieList movies={movies}/>
-
-      <div className="movie">
-        {/* <Movie movies={movies} /> */}
-      </div>
+      <MovieList movies={movies} />
     </div>
   )
 }

@@ -17,11 +17,11 @@ const Search = ({searchingMovies}) => {
 
 
   return (
-    <div className="searchContainer">
+    <div className="searchFormContainer">
       <form onSubmit={handleSubmit}>
         <input type="text" value={searchMovie} onChange={handleChange}/>
       </form>
-      <div className="resultsContainer">
+      <div className="movieListContainer">
         <MovieList />
       </div>
     </div>
