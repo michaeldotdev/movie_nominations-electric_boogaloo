@@ -1,26 +1,70 @@
-import React, { useState} from 'react';
+import React, {useReducer} from 'react';
 
-import {fetchMovies} from '../helpers'
-import MovieList from './MovieList';
 import Search from './Search';
+import MovieList from './MovieList';
+import {fetchMovies} from '../helpers'
+
+
+const initialState = {
+  isLoading: true,
+  movies: [],
+  error: null,
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "searchMovieRequest":
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case "searchMovieSuccess":
+      return {
+        ...state,
+        isLoading: false,
+        movies: action.payload,
+      };
+    case "searchMovieFail":
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
+    default:
+      return state;
+  }
+}
 
 
 const App = () => {
-  const [movies, setMovies] = useState([]);
+  const [state, dispatch] = useReducer(reducer, initialState)
+  
+  const searchMovies = movieName => {
+    dispatch({
+      type: "searchMovieRequest"
+    })
 
-  const searchingMovies = e => {
-    return fetchMovies(e).then(data => {
-        setMovies(data.Search)
+    return fetchMovies(movieName).then(data => {
+     if (data.Response === 'True') {
+          dispatch({
+            type: "searchMovieSuccess",
+            payload: data.Search,
+          });
+        } else {
+          dispatch({
+            type: "searchMovieFail",
+            error: data.Error
+          })
       }
-    )
+    })
   }
-
-
+  
   return (
     <div className="App">
       <h1>Movie Nominations</h1>
-      <Search searchingMovies={searchingMovies} />
-      <MovieList movies={movies} />
+      <Search searchMovies={searchMovies} />
+      <MovieList movies={state.movies}/>
     </div>
   )
 }

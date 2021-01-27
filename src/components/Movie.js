@@ -1,15 +1,14 @@
 import React from 'react';
 
-const Movie = ({ movies }) => {
-  const {Title, Year, Poster} = movies
+const Movie = ({ movie }) => {
+  const { Title, Year, imdbID } = movie
+  const link = `https://imdb.com/title/${imdbID}/`
+
   return (
     <div className="movieDetails">
       <h3 className="title">{Title}</h3>
       <p className="year">{Year}</p>
-      <img src={Poster} alt={`This movie titled ${Title}`} width="150"/>
-      <div className="nominationButton">
-        <button>Nomination</button>
-      </div>
+      <a href={link} className="link">{Title}</a>
     </div>
   )
 }

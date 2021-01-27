@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import MovieList from './MovieList';
 
 
-const Search = ({searchingMovies}) => {
-  const [searchMovie, setSearchMovies] = useState("");
+const Search = ({ searchMovies } ) => {
+  const [movieSearchTerm, setMovieSearchTerm] = useState("");
 
   function handleChange(e) {
     let searchTerm = e.target.value;
-    setSearchMovies(searchTerm);
-    searchingMovies(searchTerm)
+    setMovieSearchTerm(searchTerm);
+    searchMovies(searchTerm)
   }
 
   function handleSubmit(e) {
@@ -19,7 +19,7 @@ const Search = ({searchingMovies}) => {
   return (
     <div className="searchFormContainer">
       <form onSubmit={handleSubmit}>
-        <input type="text" value={searchMovie} onChange={handleChange}/>
+        <input type="text" value={movieSearchTerm} onChange={handleChange}/>
       </form>
       <div className="movieListContainer">
         <MovieList />
